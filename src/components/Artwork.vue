@@ -44,9 +44,25 @@
       </div>
     </div>
 
-    <div id="drop_zone" @dragover.prevent @drop="imageDrop">
-      <strong>Drag one or more files to this Drop Zone ...</strong>
+    <div class="form-group row" @dragover.prevent @drop="imageDrop">
+      <label  class="col-2 col-form-label">Images</label>
+      <b-alert variant="info" show > Drag & Drop image here please ... </b-alert>
     </div>
+
+    <div class="form-group row" @dragover.prevent @drop="imageDrop">
+      <div class="row imagetiles">
+        <div v-for="image in artwork.images" class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+          <img :src="image.base64" class="img-rounded img-responsive" :alt="image.name">
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <div class="col-10">
+        <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
+      </div>
+    </div>
+
 
   </div>
 </template>
@@ -65,18 +81,38 @@ export default {
         description: '',
         price: '',
         width: '',
-        height: ''
+        height: '',
+        isPublished: false,
+        images: []
       },
-      artistsOpts: [],
-      customImageMaxSize: 3
+      artistsOpts: []
     }
   },
   methods: {
     imageDrop: function (ev) {
+      ev.stopPropagation()
       ev.preventDefault()
-      console.log(event.dataTransfer.files)
-      const data = ev.dataTransfer.getData('text/html')
-      alert(data)
+      const file = event.dataTransfer.files[0]
+      // file.name file.type
+      const reader = new FileReader()
+      const images = this.artwork.images
+      reader.onload = function (sourceFile) {
+        images.push({
+          name: file.name,
+          base64: _.get(sourceFile, 'target.result')
+        })
+      }
+      reader.readAsDataURL(file)
+    },
+    sibmitData: function () {
+      console.log(this.artwork)
+      // this.$http.post('http://localhost:3000/arworks', JSON.stringify(this.artwork))
+      //   .then((response) => {
+      //     console.log(response)
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //   })
     }
   },
   mounted: function () {
