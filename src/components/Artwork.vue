@@ -82,7 +82,7 @@ export default {
         price: '',
         width: '',
         height: '',
-        isPublished: false,
+        is_published: '1',
         images: []
       },
       artistsOpts: []
@@ -106,13 +106,13 @@ export default {
     },
     sibmitData: function () {
       console.log(this.artwork)
-      // this.$http.post('http://localhost:3000/arworks', JSON.stringify(this.artwork))
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
+      this.$http.post('http://localhost:3000/artworks', JSON.stringify(this.artwork))
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   mounted: function () {
