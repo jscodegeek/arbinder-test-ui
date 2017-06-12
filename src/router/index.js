@@ -4,7 +4,8 @@ import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
 
 import Hello from '@/components/Hello'
-import Artist from '@/components/ARTIST'
+import Artist from '@/components/Artist'
+import Artwork from '@/components/Artwork'
 
 Vue.use(Router)
 Vue.use(VueResource)
@@ -21,6 +22,11 @@ export default new Router({
       path: '/artists/new',
       name: 'Artist',
       component: Artist
+    },
+    {
+      path: '/artworks/new',
+      name: 'Artwork',
+      component: Artwork
     }
   ]
 })
