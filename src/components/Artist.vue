@@ -8,7 +8,7 @@
     <div class="form-group row">
       <label for="first_name" class="col-2 col-form-label">First name *</label>
       <div class="col-10">
-        <b-form-input v-model="artist.first_name" placeholder="Eugene" id="first_name" required="required"></b-form-input>
+        <b-form-input v-model="artist.first_name" placeholder="Eugene" id="first_name"></b-form-input>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
     </div>
   
     <div class="form-group row">
-      <div class="col-10 drag">
+      <div class="col-10">
         <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
       </div>
     </div>
@@ -55,7 +55,7 @@ export default {
       notification: {
         isSuccess: false,
         isError: false,
-        successMsg: 'Successfully added client to DB',
+        successMsg: 'Successfully added artist to DB',
         errorMsg: 'Some error was happend'
       }
     }

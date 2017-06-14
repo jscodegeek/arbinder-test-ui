@@ -4,18 +4,22 @@
     <div class="form-group row">
       <h2>{{ title }}</h2>
     </div>
-  
+
     <div class="form-group row">
-      <label for="artist_id" class="col-2 col-form-label">Select artist</label>
+      <label for="title" class="col-2 col-form-label">Title</label>
+      <div class="star" @click="tooglePablished">
+          <span class="glyphicon glyphicon-star" v-if="isPublished()"></span>
+          <span class="glyphicon glyphicon-star-empty" v-if="!isPublished()"></span>
+      </div>
       <div class="col-10">
-        <b-form-select v-model="artwork.artist_id" :options="artistsOpts" valucalss="mb-3" id="artist_id"> </b-form-select>
+          <b-form-input v-model="artwork.title" placeholder="The black ocen in night" id="title"></b-form-input>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="title" class="col-2 col-form-label">Title</label>
+      <label for="artist_id" class="col-2 col-form-label">Select artist</label>
       <div class="col-10">
-        <b-form-input v-model="artwork.title" placeholder="The black ocen in night" id="title"></b-form-input>
+        <b-form-select v-model="artwork.artist_id" :options="artistsOpts" valucalss="mb-3" id="artist_id"> </b-form-select>
       </div>
     </div>
 
@@ -30,7 +34,9 @@
       <label for="price" class="col-2 col-form-label">Price</label>
       <div class="input-group">
         <div class="input-group-addon">$</div>
-        <b-form-input v-model="artwork.price" placeholder="1000.00" id="price"></b-form-input>
+        <div class="input-group">
+          <b-form-input v-model="artwork.price" placeholder="1000.00" id="price"></b-form-input>
+        </div>
       </div>
     </div>
 
@@ -46,7 +52,7 @@
 
     <div class="form-group row" @dragover.prevent @drop="imageDrop">
       <label  class="col-2 col-form-label">Images</label>
-      <b-alert variant="info" show > Drag & Drop image here please ... </b-alert>
+      <b-alert variant="info" class="drag" show > Drag & Drop image here please ... </b-alert>
     </div>
 
     <div class="form-group row" @dragover.prevent @drop="imageDrop">
@@ -63,6 +69,17 @@
       </div>
     </div>
 
+    <div class="form-group row">
+      <div class="col-10">
+        <b-alert variant="danger" :show="notification.isError" > {{ notification.errorMsg }} </b-alert>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-10">
+        <b-alert variant="success" :show="notification.isSuccess" > {{ notification.successMsg }} </b-alert>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -83,17 +100,33 @@ export default {
         width: '',
         height: '',
         is_published: '1',
+        status: 'NOT_PUBLISHED',
         images: []
       },
-      artistsOpts: []
+      artistsOpts: [],
+      notification: {
+        isSuccess: false,
+        isError: false,
+        successMsg: 'Successfully added artwork to DB',
+        errorMsg: 'Some error was happend'
+      }
     }
   },
   methods: {
+    tooglePablished: function () {
+      if (this.artwork.status === 'PUBLISHED') {
+        this.artwork.status = 'NOT_PUBLISHED'
+      } else {
+        this.artwork.status = 'PUBLISHED'
+      }
+    },
+    isPublished: function () {
+      return this.artwork.status === 'NOT_PUBLISHED'
+    },
     imageDrop: function (ev) {
       ev.stopPropagation()
       ev.preventDefault()
       const file = event.dataTransfer.files[0]
-      // file.name file.type
       const reader = new FileReader()
       const images = this.artwork.images
       reader.onload = function (sourceFile) {
@@ -109,10 +142,20 @@ export default {
       this.$http.post('http://localhost:3000/artworks', JSON.stringify(this.artwork))
         .then((response) => {
           console.log(response)
+          this._setSuccess()
         })
         .catch((error) => {
           console.log(error)
+          this._setError()
         })
+    },
+    _setError: function () {
+      this.notification.isSuccess = false
+      this.notification.isError = true
+    },
+    _setSuccess: function () {
+      this.notification.isError = false
+      this.notification.isSuccess = true
     }
   },
   mounted: function () {
@@ -133,3 +176,17 @@ export default {
   }
 }
 </script>
+
+
+
+<style>
+  .drag {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: black;
+  }
+
+  .star {
+    cursor: pointer;
+  }
+</style>
