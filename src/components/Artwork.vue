@@ -99,7 +99,6 @@ export default {
         price: '',
         width: '',
         height: '',
-        is_published: '1',
         status: 'NOT_PUBLISHED',
         images: []
       },
@@ -121,7 +120,7 @@ export default {
       }
     },
     isPublished: function () {
-      return this.artwork.status === 'NOT_PUBLISHED'
+      return this.artwork.status === 'PUBLISHED'
     },
     imageDrop: function (ev) {
       ev.stopPropagation()
@@ -129,7 +128,7 @@ export default {
       const file = event.dataTransfer.files[0]
       const reader = new FileReader()
       const images = this.artwork.images
-      reader.onload = function (sourceFile) {
+      reader.onload = sourceFile => {
         images.push({
           name: file.name,
           base64: _.get(sourceFile, 'target.result')
@@ -139,7 +138,7 @@ export default {
     },
     sibmitData: function () {
       console.log(this.artwork)
-      this.$http.post('http://localhost:3000/artworks', JSON.stringify(this.artwork))
+      this.$http.post('http://localhost:3000/artworks', this.prepareData(this.artwork))
         .then((response) => {
           console.log(response)
           this._setSuccess()
@@ -148,6 +147,20 @@ export default {
           console.log(error)
           this._setError()
         })
+    },
+    prepareData: function (artwork) {
+      const artworkCopy = _.assign({}, artwork)
+      artworkCopy.images = artworkCopy.images.map(img => {
+        return {
+          name: img.name,
+          base64: this.cutPrefixBase64Data(img.base64)
+        }
+      })
+      return JSON.stringify(artworkCopy)
+    },
+    cutPrefixBase64Data: function (base64) {
+      const endOfPrefix = base64.indexOf('base64,') + 7
+      return base64.substring(endOfPrefix)
     },
     _setError: function () {
       this.notification.isSuccess = false
