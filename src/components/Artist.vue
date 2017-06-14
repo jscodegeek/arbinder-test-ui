@@ -6,7 +6,7 @@
     </div>
   
     <div class="form-group row">
-      <label for="first_name" class="col-2 col-form-label">First name</label>
+      <label for="first_name" class="col-2 col-form-label">First name *</label>
       <div class="col-10">
         <b-form-input v-model="artist.first_name" placeholder="Eugene" id="first_name" required="required"></b-form-input>
       </div>
@@ -18,16 +18,9 @@
         <b-form-input v-model="artist.last_name" placeholder="Safronov" id="last_name"></b-form-input>
       </div>
     </div>
-
-    <div class="form-group row">
-      <label for="email" class="col-2 col-form-label">Email</label>
-      <div class="col-10">
-        <b-form-input v-model="artist.email" placeholder="eugene@outlook.com" id="email"></b-form-input>
-      </div>
-    </div>
   
     <div class="form-group row">
-      <div class="col-10">
+      <div class="col-10 drag">
         <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
       </div>
     </div>
@@ -57,8 +50,7 @@ export default {
       title: 'Create new artist:',
       artist: {
         first_name: '',
-        last_name: '',
-        email: ''
+        last_name: ''
       },
       notification: {
         isSuccess: false,
