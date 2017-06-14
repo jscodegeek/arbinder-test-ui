@@ -172,6 +172,26 @@ export default {
     }
   },
   mounted: function () {
+    const awId = this.$route.params.id
+    if (typeof awId !== 'undefined') {
+      this.$http.get(`http://localhost:3000/artworks/${awId}`)
+        .then((response) => {
+          const artworkObj = _.get(response, 'body')
+          this.title = 'Update artwork:'
+          this.artwork = _.merge(this.artwork, {
+            artist_id: artworkObj.artwork.artist_id,
+            title: artworkObj.artwork.title,
+            description: artworkObj.artwork.description,
+            price: artworkObj.artwork.price,
+            width: artworkObj.artwork.width,
+            height: artworkObj.hight,
+            status: artworkObj.status
+          })
+        })
+      // this.artwork = _.merge(this.artwork, {
+      //   title: 'test'
+      // })
+    }
     this.$http.get('http://localhost:3000/artists')
         .then((response) => {
           console.log(response)

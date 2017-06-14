@@ -27,6 +27,11 @@ export default new Router({
       path: '/artworks/new',
       name: 'Artwork',
       component: Artwork
+    },
+    {
+      path: '/artworks/:id',
+      name: 'Artwork',
+      component: Artwork
     }
   ]
 })
