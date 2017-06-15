@@ -150,6 +150,9 @@ export default {
     },
     prepareData: function (artwork) {
       const artworkCopy = _.assign({}, artwork)
+      artworkCopy.price = Math.round(artworkCopy.price * 100)
+      artworkCopy.width = Math.round(artworkCopy.width)
+      artworkCopy.height = Math.round(artworkCopy.height)
       artworkCopy.images = artworkCopy.images.map(img => {
         return {
           name: img.name,
