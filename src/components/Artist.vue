@@ -1,40 +1,30 @@
 <template>
   <div class="artist">
   
-    <div class="form-group row">
+    <div class="form-group">
       <h2>{{ title }}</h2>
     </div>
   
-    <div class="form-group row">
-      <label for="first_name" class="col-2 col-form-label">First name *</label>
-      <div class="col-10">
-        <b-form-input v-model="artist.first_name" placeholder="Eugene" id="first_name"></b-form-input>
-      </div>
+    <div class="form-group">
+      <label for="first_name">First name *</label>
+      <b-form-input v-model="artist.first_name" placeholder="Eugene" id="first_name"></b-form-input>
     </div>
 
-    <div class="form-group row">
-      <label for="last_name" class="col-2 col-form-label">Last name</label>
-      <div class="col-10">
-        <b-form-input v-model="artist.last_name" placeholder="Safronov" id="last_name"></b-form-input>
-      </div>
+    <div class="form-group">
+      <label for="last_name">Last name</label>
+      <b-form-input v-model="artist.last_name" placeholder="Safronov" id="last_name"></b-form-input>
     </div>
   
-    <div class="form-group row">
-      <div class="col-10">
-        <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
-      </div>
+    <div class="form-group">
+      <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
     </div>
 
-    <div class="form-group row">
-      <div class="col-10">
-        <b-alert variant="danger" :show="notification.isError" > {{ notification.errorMsg }} </b-alert>
-      </div>
+    <div class="form-group">
+      <b-alert variant="danger" :show="notification.isError" > {{ notification.errorMsg }} </b-alert>
     </div>
 
-    <div class="form-group row">
-      <div class="col-10">
-        <b-alert variant="success" :show="notification.isSuccess" > {{ notification.successMsg }} </b-alert>
-      </div>
+    <div class="form-group">
+      <b-alert variant="success" :show="notification.isSuccess" > {{ notification.successMsg }} </b-alert>
     </div>
 
   </div>

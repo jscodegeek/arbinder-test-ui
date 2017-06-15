@@ -1,6 +1,6 @@
 <template>
   <div class="artworrList">
-    <div class="form-group row">
+    <div class="form-group">
       <h2>{{ title }}</h2>
     
   

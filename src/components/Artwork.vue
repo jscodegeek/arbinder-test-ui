@@ -1,37 +1,31 @@
 <template>
   <div class="artwork">
   
-    <div class="form-group row">
+    <div class="form-group">
       <h2>{{ title }}</h2>
     </div>
 
-    <div class="form-group row">
-      <label for="title" class="col-2 col-form-label">Title *</label>
-      <div class="star" @click="tooglePablished">
-          <span class="glyphicon glyphicon-star" v-if="isPublished()"></span>
-          <span class="glyphicon glyphicon-star-empty" v-if="!isPublished()"></span>
-      </div>
-      <div class="col-10">
+    <div class="form-group">
+      <label for="title">Title *</label>
           <b-form-input v-model="artwork.title" placeholder="The black ocen in night" id="title"></b-form-input>
-      </div>
+          <div class="star" @click="tooglePablished">
+            <span class="glyphicon glyphicon-star" v-if="isPublished()"></span>
+            <span class="glyphicon glyphicon-star-empty" v-if="!isPublished()"></span>
+           </div>
     </div>
 
-    <div class="form-group row">
-      <label for="artist_id" class="col-2 col-form-label">Select artist  *</label>
-      <div class="col-10">
-        <b-form-select v-model="artwork.artist_id" :options="artistsOpts" valucalss="mb-3" id="artist_id"> </b-form-select>
-      </div>
+    <div class="form-group">
+      <label for="artist_id">Select artist  *</label></br>
+      <b-form-select v-model="artwork.artist_id" :options="artistsOpts" valucalss="mb-3" id="artist_id"> </b-form-select>
     </div>
 
-    <div class="form-group row">
-      <label for="description" class="col-2 col-form-label">Description  *</label>
-      <div class="col-10">
-        <b-form-input v-model="artwork.description" placeholder="Artwork description" id="description"></b-form-input>
-      </div>
+    <div class="form-group">
+      <label for="description">Description  *</label>
+      <b-form-input v-model="artwork.description" placeholder="Artwork description" id="description"></b-form-input>
     </div>
 
-    <div class="form-group row">
-      <label for="price" class="col-2 col-form-label">Price  *</label>
+    <div class="form-group">
+      <label for="price">Price  *</label>
       <div class="input-group">
         <div class="input-group-addon">$</div>
         <div class="input-group">
@@ -40,8 +34,8 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="dimension" class="col-2 col-form-label">Dimension in mm  *</label>
+    <div class="form-group">
+      <label for="dimension">Dimension in mm  *</label>
       <div class="input-group">
         <div class="input-group-addon">width</div>
         <b-form-input v-model="artwork.width" placeholder="100" id="dimension"></b-form-input>
@@ -50,35 +44,32 @@
       </div>
     </div>
 
-    <div class="form-group row" @dragover.prevent @drop="imageDrop">
-      <label  class="col-2 col-form-label">Images</label>
+    <div class="form-group" @dragover.prevent @drop="imageDrop">
+      <label>Images</label>
       <b-alert variant="info" class="drag" show > Drag & Drop image here please ... </b-alert>
     </div>
 
-    <div class="form-group row" @dragover.prevent @drop="imageDrop">
-      <div class="row imagetiles">
-        <div v-for="image in artwork.images" class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-          <img :src="image.base64" class="img-rounded img-responsive" :alt="image.name">
-        </div>
-      </div>
-    </div>
-    
-    <div class="form-group row">
-      <div class="col-10">
-        <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
-      </div>
+    <div class="form-group" @dragover.prevent @drop="imageDrop">
     </div>
 
-    <div class="form-group row">
-      <div class="col-10">
+    <div class="form-group">
+        <b-button v-on:click="sibmitData" size="md" variant="primary">Save</b-button>
+    </div>
+
+    <div class="form-group">
+      <div>
         <b-alert variant="danger" :show="notification.isError" > {{ notification.errorMsg }} </b-alert>
       </div>
     </div>
 
-    <div class="form-group row">
-      <div class="col-10">
+    <div class="form-group">
+      <div>
         <b-alert variant="success" :show="notification.isSuccess" > {{ notification.successMsg }} </b-alert>
       </div>
+    </div>
+
+    <div class="form-group" v-for="image in artwork.images" >
+          <img :src="image.base64" class="imgbase64" :alt="image.name">
     </div>
 
   </div>
@@ -204,5 +195,10 @@ export default {
 
   .star {
     cursor: pointer;
+  }
+
+  .imgbase64 {
+    float: left;
+    width: 24%;
   }
 </style>
