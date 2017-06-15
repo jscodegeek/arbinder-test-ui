@@ -2,6 +2,13 @@
   <div id="app">
     <img class="logo" src="./assets/logo.png">
     <div class="container">
+      <b-navbar toggleable variant="default">      
+        <b-nav is-nav-bar>
+          <b-nav-item href='/#/artworks'>Artowrk list</b-nav-item>
+          <b-nav-item href='/#/artwork/new'>New Artwork</b-nav-item>
+          <b-nav-item href='/#/artists/new'>New Artist</b-nav-item>
+        </b-nav>
+      </b-navbar>
       <router-view class="router"></router-view>
     </div>    
   </div>
