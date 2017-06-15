@@ -1,18 +1,19 @@
 <template>
   <div class="artwork">
-  
     <div class="form-group">
       <h2>{{ title }}</h2>
     </div>
 
+    <div class="form-group star" @click="tooglePablished">
+        <img class="img-star" src="../assets/star.png"  v-if="isPublished()">
+        <img class="img-star" src="../assets/empty-star.png" v-if="!isPublished()">
+    </div>
+
     <div class="form-group">
       <label for="title">Title *</label>
-          <b-form-input v-model="artwork.title" placeholder="The black ocen in night" id="title"></b-form-input>
-          <div class="star" @click="tooglePablished">
-            <span class="glyphicon glyphicon-star" v-if="isPublished()"></span>
-            <span class="glyphicon glyphicon-star-empty" v-if="!isPublished()"></span>
-           </div>
+      <b-form-input v-model="artwork.title" placeholder="The black ocen in night" id="title"></b-form-input>    
     </div>
+    
 
     <div class="form-group">
       <label for="artist_id">Select artist  *</label></br>
@@ -200,5 +201,9 @@ export default {
   .imgbase64 {
     float: left;
     width: 24%;
+  }
+
+  .img-star {
+    width: 24px;
   }
 </style>
