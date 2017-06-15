@@ -6,7 +6,7 @@
     </div>
 
     <div class="form-group row">
-      <label for="title" class="col-2 col-form-label">Title</label>
+      <label for="title" class="col-2 col-form-label">Title *</label>
       <div class="star" @click="tooglePablished">
           <span class="glyphicon glyphicon-star" v-if="isPublished()"></span>
           <span class="glyphicon glyphicon-star-empty" v-if="!isPublished()"></span>
@@ -17,21 +17,21 @@
     </div>
 
     <div class="form-group row">
-      <label for="artist_id" class="col-2 col-form-label">Select artist</label>
+      <label for="artist_id" class="col-2 col-form-label">Select artist  *</label>
       <div class="col-10">
         <b-form-select v-model="artwork.artist_id" :options="artistsOpts" valucalss="mb-3" id="artist_id"> </b-form-select>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="description" class="col-2 col-form-label">Description</label>
+      <label for="description" class="col-2 col-form-label">Description  *</label>
       <div class="col-10">
         <b-form-input v-model="artwork.description" placeholder="Artwork description" id="description"></b-form-input>
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="price" class="col-2 col-form-label">Price</label>
+      <label for="price" class="col-2 col-form-label">Price  *</label>
       <div class="input-group">
         <div class="input-group-addon">$</div>
         <div class="input-group">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group row">
-      <label for="dimension" class="col-2 col-form-label">Dimension in mm</label>
+      <label for="dimension" class="col-2 col-form-label">Dimension in mm  *</label>
       <div class="input-group">
         <div class="input-group-addon">width</div>
         <b-form-input v-model="artwork.width" placeholder="100" id="dimension"></b-form-input>
@@ -172,26 +172,6 @@ export default {
     }
   },
   mounted: function () {
-    const awId = this.$route.params.id
-    if (typeof awId !== 'undefined') {
-      this.$http.get(`http://localhost:3000/artworks/${awId}`)
-        .then((response) => {
-          const artworkObj = _.get(response, 'body')
-          this.title = 'Update artwork:'
-          this.artwork = _.merge(this.artwork, {
-            artist_id: artworkObj.artwork.artist_id,
-            title: artworkObj.artwork.title,
-            description: artworkObj.artwork.description,
-            price: artworkObj.artwork.price,
-            width: artworkObj.artwork.width,
-            height: artworkObj.hight,
-            status: artworkObj.status
-          })
-        })
-      // this.artwork = _.merge(this.artwork, {
-      //   title: 'test'
-      // })
-    }
     this.$http.get('http://localhost:3000/artists')
         .then((response) => {
           console.log(response)
