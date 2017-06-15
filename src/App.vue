@@ -5,7 +5,7 @@
       <b-navbar toggleable variant="default">      
         <b-nav is-nav-bar>
           <b-nav-item href='/#/artworks'>Artowrk list</b-nav-item>
-          <b-nav-item href='/#/artwork/new'>New Artwork</b-nav-item>
+          <b-nav-item href='/#/artworks/new'>New Artwork</b-nav-item>
           <b-nav-item href='/#/artists/new'>New Artist</b-nav-item>
         </b-nav>
       </b-navbar>
